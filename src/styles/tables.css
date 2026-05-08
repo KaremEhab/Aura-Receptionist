@@ -180,9 +180,13 @@ tr:hover td {
   background: var(--formfield);
   border: 1px solid var(--stroke);
   border-radius: 8px;
-  color: var(--subtitle);
+  color: var(--title);
   cursor: pointer;
   transition: all 0.2s;
+}
+
+.page-btn svg {
+  color: var(--title);
 }
 
 .page-btn:hover {

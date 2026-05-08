@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ThemeProvider } from './context/ThemeContext';
 import { DashboardLayout } from './components/layout/DashboardLayout';
 import { Dashboard } from './pages/Dashboard/Dashboard';
@@ -121,7 +122,17 @@ function App() {
   return (
     <ThemeProvider>
       {currentPage === 'new-trainee' ? (
-        <NewTrainee onBack={() => setCurrentPage('dashboard')} />
+        <AnimatePresence mode="wait">
+          <motion.div
+            key="new-trainee"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <NewTrainee onBack={() => setCurrentPage('dashboard')} />
+          </motion.div>
+        </AnimatePresence>
       ) : (
         <DashboardLayout
           currentPage={currentPage}
@@ -132,26 +143,36 @@ function App() {
           onSearch={setSearchQuery}
           onEndShift={handleEndShift}
         >
-          {currentPage === 'dashboard' && (
-            <Dashboard
-              shiftData={shiftData}
-              onNavigate={setCurrentPage}
-              onAction={handleDashboardAction}
-            />
-          )}
-          {currentPage === 'subscriptions' && <Subscriptions receptionist={receptionist} />}
-          {currentPage === 'maintenance' && <Maintenance receptionist={receptionist} />}
-          {currentPage === 'equipments' && <Equipments receptionist={receptionist} />}
-          {currentPage === 'support' && <Support receptionist={receptionist} />}
-          {currentPage === 'settings' && (
-            <Settings
-              receptionist={receptionist}
-              onUpdateReceptionist={setReceptionist}
-            />
-          )}
-          {currentPage === 'trainers' && (
-            <TrainersPage receptionist={receptionist} />
-          )}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentPage}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+            >
+              {currentPage === 'dashboard' && (
+                <Dashboard
+                  shiftData={shiftData}
+                  onNavigate={setCurrentPage}
+                  onAction={handleDashboardAction}
+                />
+              )}
+              {currentPage === 'subscriptions' && <Subscriptions receptionist={receptionist} />}
+              {currentPage === 'maintenance' && <Maintenance receptionist={receptionist} />}
+              {currentPage === 'equipments' && <Equipments receptionist={receptionist} />}
+              {currentPage === 'support' && <Support receptionist={receptionist} />}
+              {currentPage === 'settings' && (
+                <Settings
+                  receptionist={receptionist}
+                  onUpdateReceptionist={setReceptionist}
+                />
+              )}
+              {currentPage === 'trainers' && (
+                <TrainersPage receptionist={receptionist} />
+              )}
+            </motion.div>
+          </AnimatePresence>
         </DashboardLayout>
       )}
     </ThemeProvider>
