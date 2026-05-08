@@ -8,7 +8,7 @@ export function ShiftLogin({ onLogin, lastShift }) {
   const [scanMode, setScanMode] = useState(false);
 
   const receptionists = {
-    kareem: { name: 'Kareem Ehab', role: 'Senior Receptionist', pin: 'Desk 01' },
+    kareem: { name: 'Kareem Ehab', role: 'Receptionist', pin: 'Desk 01' },
     laila: { name: 'Laila Hassan', role: 'Evening Receptionist', pin: 'Desk 02' },
     omar: { name: 'Omar Nabil', role: 'Weekend Receptionist', pin: 'Desk 03' },
   };

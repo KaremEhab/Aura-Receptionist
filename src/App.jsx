@@ -28,7 +28,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [receptionist, setReceptionist] = useState({
     name: 'Kareem Ehab',
-    role: 'Senior Receptionist',
+    role: 'Receptionist',
     pin: 'Desk 01',
   });
   const [shiftData, setShiftData] = useState(() => createCleanShift());

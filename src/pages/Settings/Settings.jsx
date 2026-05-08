@@ -5,7 +5,7 @@ import './Settings.css';
 export function Settings({ receptionist, onUpdateReceptionist }) {
   const [profile, setProfile] = useState({
     name: receptionist?.name || 'Kareem Ehab',
-    role: receptionist?.role || 'Senior Receptionist',
+    role: receptionist?.role || 'Receptionist',
     pin: receptionist?.pin || 'Desk 01',
     phone: receptionist?.phone || '+20 100 000 0000',
     email: receptionist?.email || 'reception@caesarsgym.com',

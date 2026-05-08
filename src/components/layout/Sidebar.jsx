@@ -69,7 +69,7 @@ export function Sidebar({ isOpen, onClose, currentPage, onNavigate, branding, re
             <p className="brand-meta">
               <span className="plan-text">{branding.plan}</span>
               <span className="divider">•</span>
-              <span className="since-text">Member since {branding.memberSince}</span>
+              <span className="since-text">Since {branding.memberSince}</span>
             </p>
           </div>
         </div>

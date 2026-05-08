@@ -7,7 +7,7 @@
 
 .main-wrapper {
   flex: 1;
-  margin-left: 300px;
+  margin-left: 245px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -48,7 +48,7 @@
   box-shadow: 0 8px 32px var(--primary-glow);
   cursor: pointer;
   z-index: 100;
-  transition: all 0.2s;
+  transition: transform 0.25s ease, width 0.3s ease;
 }
 
 .fab-button:hover {
@@ -56,7 +56,7 @@
   box-shadow: 0 12px 48px var(--primary-glow);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1410px) {
   .main-wrapper {
     margin-left: 0;
   }

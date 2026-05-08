@@ -1,5 +1,5 @@
 .sidebar {
-  width: 300px;
+  width: 245px;
   height: 100vh;
   box-sizing: border-box;
   background-color: var(--sidebar);
@@ -42,8 +42,8 @@
 
 .logo-box img {
   width: 34px;
-  height: 36px;
-  object-fit: contain;
+  height: 34px;
+  object-fit: cover;
 }
 
 .brand-name {
@@ -280,9 +280,9 @@
   font-weight: 800;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1410px) {
   .sidebar {
     transform: translateX(-100%);
-    width: min(300px, 86vw);
+    width: 280px; /* Wider for better tablet usage */
   }
 }
