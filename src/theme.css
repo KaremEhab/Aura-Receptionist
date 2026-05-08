@@ -15,6 +15,7 @@
   --black: #18181B;
   --subtitle: #71717A;
   --sidebar: rgba(255, 255, 255, 0.4);
+  --card-bg: #FFFFFF;
   --formfield: #FFFFFF;
   --stroke: #E4E4E7;
   --gradient: linear-gradient(135deg, var(--primary-lite), var(--primary));
@@ -22,26 +23,28 @@
 }
 
 [data-theme='dark'] {
-  /* Dark Theme */
-  --background: #031427;
-  --primary: #4BE277;
-  --primary-lite: rgba(75, 226, 119, 0.1);
-  --primary-border: rgba(75, 226, 119, 0.5);
-  --alert: #FFB4AB;
-  --alert-lite: rgba(255, 180, 171, 0.1);
-  --alert-border: rgba(255, 180, 171, 0.5);
-  --secondary: #FFDB9D;
-  --secondary-lite: rgba(255, 219, 157, 0.1);
-  --secondary-border: rgba(255, 219, 157, 0.5);
-  --title: #D3E4FE;
-  --white: #FFFFFF;
-  --black: #18181B;
-  --subtitle: #94A3B8;
-  --sidebar: rgba(2, 6, 23, 0.5);
-  --formfield: #0F172A;
-  --stroke: #1E293B;
-  --gradient: linear-gradient(135deg, var(--primary-lite), var(--primary));
-  --overlay: rgba(0, 0, 0, 0.6);
+  /* Dark Theme - High Density Premium */
+  --background: #070b14;
+  --primary: #22c55e;
+  --primary-lite: rgba(34, 197, 94, 0.1);
+  --primary-border: rgba(34, 197, 94, 0.3);
+  --primary-glow: rgba(34, 197, 94, 0.4);
+  --alert: #ef4444;
+  --alert-lite: rgba(239, 68, 68, 0.1);
+  --alert-border: rgba(239, 68, 68, 0.3);
+  --secondary: #f59e0b;
+  --secondary-lite: rgba(245, 158, 11, 0.1);
+  --secondary-border: rgba(245, 158, 11, 0.3);
+  --title: #f8fafc;
+  --white: #ffffff;
+  --black: #020617;
+  --subtitle: #94a3b8;
+  --sidebar: #0a0e1a;
+  --card-bg: #0d1321;
+  --formfield: #111827;
+  --stroke: #1e293b;
+  --gradient: linear-gradient(135deg, var(--primary), #16a34a);
+  --overlay: rgba(0, 0, 0, 0.7);
 }
 
 /* Utility classes for App.jsx */

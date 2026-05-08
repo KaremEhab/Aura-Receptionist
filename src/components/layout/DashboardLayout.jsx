@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { BottomNav } from './BottomNav';
 import { NotificationPanel } from './NotificationPanel';
 import { Plus } from 'lucide-react';
-import { isTauri } from '../../lib/tauri';
 import './DashboardLayout.css';
 
 
-export function DashboardLayout({ children, currentPage, onNavigate, branding, searchQuery, onSearch }) {
+export function DashboardLayout({ children, currentPage, onNavigate, branding, receptionist, searchQuery, onSearch, onEndShift }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
@@ -41,6 +40,8 @@ export function DashboardLayout({ children, currentPage, onNavigate, branding, s
         onClose={() => setSidebarOpen(false)} 
         currentPage={currentPage}
         branding={branding}
+        receptionist={receptionist}
+        onEndShift={onEndShift}
         onNavigate={(page) => {
           onNavigate(page);
           setSidebarOpen(false);
@@ -63,9 +64,14 @@ export function DashboardLayout({ children, currentPage, onNavigate, branding, s
           onMenuClick={() => setSidebarOpen(!sidebarOpen)}
           onRefresh={handleRefresh}
           onNotifClick={() => setNotifOpen(true)}
+          searchQuery={searchQuery}
+          onSearch={onSearch}
         />
-        <button className="fab-button" title="Add New Gym">
-
+        <button
+          className="fab-button"
+          onClick={() => onNavigate('new-trainee')}
+          title="Add New Trainee"
+        >
           <Plus size={24} />
         </button>
       </div>

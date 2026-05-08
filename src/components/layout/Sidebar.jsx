@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
-import { Home, Dumbbell, User, Users, DollarSign, Server, BookOpen, HelpCircle, LogOut, X, ChevronRight, ChevronDown, Zap, Monitor } from 'lucide-react';
-import { isTauri } from '../../lib/tauri';
+import { useState } from 'react';
+import { Home, Dumbbell, CreditCard, HelpCircle, LogOut, ChevronRight, ChevronDown, Zap, Users, ScanLine } from 'lucide-react';
 import './Sidebar.css';
 
 
-export function Sidebar({ isOpen, onClose, currentPage, onNavigate, branding }) {
-  const [showPalette, setShowPalette] = useState(true);
+export function Sidebar({ isOpen, onClose, currentPage, onNavigate, branding, receptionist, onEndShift }) {
   const [openGroups, setOpenGroups] = useState({
     dashboard: true,
     financials: true,
@@ -22,39 +20,11 @@ export function Sidebar({ isOpen, onClose, currentPage, onNavigate, branding }) 
         { label: 'Pending checkins', section: 'pending-checkins' },
       ],
     },
-    { id: 'gyms', icon: Dumbbell, label: 'GYMS' },
-    {
-      id: 'trainees',
-      icon: Users,
-      label: 'TRAINEES',
-      children: [
-        { label: 'Overview', section: 'trainees-overview' },
-        { label: 'Engagement', section: 'trainees-engagement' },
-        { label: 'Lifecycle', section: 'trainees-lifecycle' },
-        { label: 'Directory', section: 'trainees-directory' },
-      ],
-    },
-    {
-      id: 'workflow',
-      icon: Zap,
-      label: 'WORKFLOWS',
-      children: [
-        { label: 'Automation cockpit', section: 'workflow-overview' },
-        { label: 'Workflow table', section: 'workflow-table' },
-      ],
-    },
-    {
-      id: 'support',
-      icon: HelpCircle,
-      label: 'SUPPORT',
-      children: [
-        { label: 'Overview', section: 'support-overview' },
-        { label: 'SLA', section: 'support-sla' },
-        { label: 'Queues', section: 'support-queues' },
-        { label: 'Tickets', section: 'support-tickets' },
-        { label: 'Broadcasts', section: 'support-broadcasts' },
-      ],
-    },
+    { id: 'subscriptions', icon: CreditCard, label: 'SUBSCRIPTIONS' },
+    { id: 'maintenance', icon: Zap, label: 'MAINTENANCE' },
+    { id: 'equipments', icon: Dumbbell, label: 'EQUIPMENTS' },
+    { id: 'trainers', icon: Users, label: 'PERSONAL TRAINERS' },
+    { id: 'support', icon: HelpCircle, label: 'SUPPORT' },
   ];
 
   const scrollToSection = (section) => {
@@ -83,19 +53,24 @@ export function Sidebar({ isOpen, onClose, currentPage, onNavigate, branding }) 
 
   return (
     <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
-      <div className="sidebar-logo" onClick={() => handleNavigate('dashboard')} style={{ cursor: 'pointer' }}>
-        <div className="logo-brand">
-          {branding.logo ? (
-            <img src={branding.logo} alt="Logo" />
-          ) : (
-            <div className="logo-icon-svg" />
-          )}
-          <span className="logo-text" style={{ color: 'var(--primary)' }}>{branding.name}</span>
+      <div className="sidebar-header-profile" onClick={() => handleNavigate('dashboard')}>
+        <div className="brand-container">
+          <div className="logo-box">
+            {branding.logo ? (
+              <img src={branding.logo} alt="Logo" />
+            ) : (
+              <div className="logo-icon-svg" />
+            )}
+          </div>
+          <div className="brand-info">
+            <h2 className="brand-name">Caesars</h2>
+            <p className="brand-meta">
+              <span className="plan-text">{branding.plan}</span>
+              <span className="divider">•</span>
+              <span className="since-text">Member since {branding.memberSince}</span>
+            </p>
+          </div>
         </div>
-
-        <button className="close-sidebar-btn" onClick={(e) => { e.stopPropagation(); onClose?.(); }}>
-          <X size={16} />
-        </button>
       </div>
 
       <nav className="sidebar-nav">
@@ -104,73 +79,66 @@ export function Sidebar({ isOpen, onClose, currentPage, onNavigate, branding }) 
             const hasChildren = Boolean(item.children?.length);
             const isOpenGroup = !!openGroups[item.id];
             return (
-            <li key={item.id} className={`${currentPage === item.id ? 'active' : ''} ${hasChildren ? 'has-children' : ''}`}>
-              <div className="nav-btn-row">
-                <button 
-                  className="nav-btn"
-                  onClick={() => handleNavigate(item.id)}
-                >
-                  <item.icon size={15} />
-                  <span>{item.label}</span>
-                </button>
-                {hasChildren && (
-                  <button className="nav-tree-toggle" onClick={() => toggleGroup(item.id)} aria-label={`Toggle ${item.label} sections`}>
-                    {isOpenGroup ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+              <li key={item.id} className={`${currentPage === item.id ? 'active' : ''} ${hasChildren ? 'has-children' : ''}`}>
+                <div className="nav-btn-row">
+                  <button 
+                    className="nav-btn"
+                    onClick={() => handleNavigate(item.id)}
+                  >
+                    <item.icon size={18} />
+                    <span>{item.label}</span>
                   </button>
-                )}
-              </div>
-              {hasChildren && isOpenGroup && (
-                <div className="nav-children">
-                  {item.children.map((child) => (
-                    <button
-                      key={`${item.id}-${child.section}`}
-                      className="nav-child-btn"
-                      onClick={() => handleNavigate(item.id, child.section)}
-                    >
-                      {child.label}
+                  {hasChildren && (
+                    <button className="nav-tree-toggle" onClick={() => toggleGroup(item.id)}>
+                      {isOpenGroup ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </button>
-                  ))}
+                  )}
                 </div>
-              )}
-            </li>
-          );})}
+                {hasChildren && isOpenGroup && (
+                  <div className="nav-children">
+                    {item.children.map((child) => (
+                      <button
+                        key={`${item.id}-${child.section}`}
+                        className="nav-child-btn"
+                        onClick={() => handleNavigate(item.id, child.section)}
+                      >
+                        {child.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </nav>
 
-      <div className="sidebar-bottom">
-        {showPalette && (
-          <div className="command-palette">
-            <button className="close-palette" onClick={() => setShowPalette(false)} aria-label="Dismiss">
-              <X size={16} />
-            </button>
-            <p className="palette-title">COMMAND PALETTE</p>
-            <p className="palette-desc">Press <kbd>⌘ K</kbd> for new gym check-in or gym creation.</p>
-          </div>
-        )}
-
+      <div className="sidebar-footer">
         <div 
-          className={`user-profile ${currentPage === 'settings' ? 'active-profile' : ''}`}
+          className={`user-profile-card ${currentPage === 'settings' ? 'active' : ''}`}
           onClick={() => handleNavigate('settings')}
         >
           <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150&auto=format&fit=crop" alt="User" />
-          <div className="user-info">
-            <h4>KAREEM EHAB</h4>
-            <a href="#" onClick={(e) => { e.preventDefault(); handleNavigate('settings'); }}>Manage profile</a>
+          <div className="user-details">
+            <h4>{receptionist?.name || 'Receptionist'}</h4>
+            <span className="manage-link">{receptionist?.role || 'Manage profile'}</span>
           </div>
           <ChevronRight size={16} className="arrow" />
         </div>
 
-        <button className="sign-out">
-          <LogOut size={16} />
-          <span>SIGN OUT</span>
+        <button className="scan-shift-btn" onClick={onEndShift}>
+          <ScanLine size={18} />
+          <span>SCAN TO END</span>
         </button>
-        <div className="logo-brand">
-          {branding.logo ? (
-            <img src={branding.logo} width={16} height={16} alt="Logo" />
-          ) : (
-            <div className="logo-icon-svg" />
-          )}
-          <span className="logo-text" style={{ color: 'var(--primary)', fontSize: '12px'}}>{branding.name}</span>
+
+        <button className="end-shift-btn" onClick={onEndShift}>
+          <LogOut size={18} />
+          <span>END SHIFT</span>
+        </button>
+
+        <div className="aura-branding">
+          <img src={branding.logo} alt="AURA.FIT." className="aura-logo-mini" />
+          <span className="aura-text">AURA.FIT.</span>
         </div>
       </div>
     </aside>

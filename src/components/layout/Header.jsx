@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Search, RefreshCcw, Moon, Sun, Bell, Plus, Menu, X, Minus, Square } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Search, RefreshCcw, Moon, Sun, Bell, Plus, Menu } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
-import { isTauri, minimizeWindow, maximizeWindow, closeWindow } from '../../lib/tauri';
 import './Header.css';
 
 export function Header({ onMenuClick, branding, onRefresh, onNotifClick, onNavigate, searchQuery, onSearch }) {
@@ -24,11 +23,12 @@ export function Header({ onMenuClick, branding, onRefresh, onNotifClick, onNavig
         </button>
         <div className="mobile-logo" onClick={() => onNavigate && onNavigate('dashboard')} style={{ cursor: 'pointer' }}>
           {branding.logo ? (
-            <img src={branding.logo} alt="Logo" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
+            <img src={branding.logo} alt="AURA.FIT." />
           ) : (
             <div className="logo-icon-svg" />
           )}
-          <span className="logo-text" style={{ color: 'var(--primary)' }}>{branding.name}</span>
+          <span className="logo-text">{branding.name}</span>
+          <span className="gym-text">{branding.gymName}</span>
         </div>
         <div className="search-bar">
           <Search size={18} className="search-icon" />
@@ -53,7 +53,7 @@ export function Header({ onMenuClick, branding, onRefresh, onNotifClick, onNavig
           <span className="notification-dot">3</span>
         </button>
         
-        <button className="btn-primary">
+        <button className="btn-primary" onClick={() => onNavigate && onNavigate('new-trainee')}>
           <Plus size={18} />
           <span>Add New Trainee</span>
         </button>

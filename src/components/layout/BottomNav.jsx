@@ -1,9 +1,8 @@
-import React from 'react';
 import { Menu, Search, RefreshCcw, Moon, Sun, Bell } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import './BottomNav.css';
 
-export function BottomNav({ onMenuClick, onRefresh, onNotifClick }) {
+export function BottomNav({ onMenuClick, onRefresh, onNotifClick, searchQuery, onSearch }) {
   const { isDark, toggleTheme } = useTheme();
 
   return (
@@ -15,7 +14,12 @@ export function BottomNav({ onMenuClick, onRefresh, onNotifClick }) {
 
         <div className="search-bar-mobile">
           <Search size={16} className="search-icon" />
-          <input type="text" placeholder="Search..." />
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery || ''}
+            onChange={(event) => onSearch?.(event.target.value)}
+          />
         </div>
 
         <div className="bottom-nav-actions">

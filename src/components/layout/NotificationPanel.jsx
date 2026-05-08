@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, CheckCircle, AlertTriangle, Info, CreditCard, Users, Server, Bell } from 'lucide-react';
+import { useState } from 'react';
+import { X, CheckCircle, AlertTriangle, CreditCard, Users, Server } from 'lucide-react';
 import './NotificationPanel.css';
 
 const notifications = [
@@ -13,9 +13,13 @@ const notifications = [
 ];
 
 export function NotificationPanel({ isOpen, onClose }) {
+  const [filter, setFilter] = useState('all');
+  const [items, setItems] = useState(notifications);
+
   if (!isOpen) return null;
 
-  const unreadCount = notifications.filter(n => !n.read).length;
+  const unreadCount = items.filter(n => !n.read).length;
+  const visibleItems = filter === 'unread' ? items.filter((item) => !item.read) : items;
 
   return (
     <>
@@ -32,14 +36,18 @@ export function NotificationPanel({ isOpen, onClose }) {
         </div>
 
         <div className="notif-actions-bar">
-          <button className="notif-tab active">All</button>
-          <button className="notif-tab">Unread</button>
-          <button className="notif-mark-read">Mark all read</button>
+          <button className={`notif-tab ${filter === 'all' ? 'active' : ''}`} onClick={() => setFilter('all')}>All</button>
+          <button className={`notif-tab ${filter === 'unread' ? 'active' : ''}`} onClick={() => setFilter('unread')}>Unread</button>
+          <button className="notif-mark-read" onClick={() => setItems((current) => current.map((item) => ({ ...item, read: true })))}>Mark all read</button>
         </div>
 
         <div className="notif-list">
-          {notifications.map(notif => (
-            <div key={notif.id} className={`notif-item ${notif.read ? 'read' : 'unread'}`}>
+          {visibleItems.map(notif => (
+            <button
+              key={notif.id}
+              className={`notif-item ${notif.read ? 'read' : 'unread'}`}
+              onClick={() => setItems((current) => current.map((item) => item.id === notif.id ? { ...item, read: true } : item))}
+            >
               <div className={`notif-icon-wrap ${notif.type}`}>
                 {notif.icon}
               </div>
@@ -49,12 +57,12 @@ export function NotificationPanel({ isOpen, onClose }) {
                 <span className="notif-time">{notif.time}</span>
               </div>
               {!notif.read && <div className="unread-dot" />}
-            </div>
+            </button>
           ))}
         </div>
 
         <div className="notif-footer">
-          <button className="notif-view-all">View All Notifications</button>
+          <button className="notif-view-all" onClick={() => setFilter('all')}>View All Notifications</button>
         </div>
       </div>
     </>
