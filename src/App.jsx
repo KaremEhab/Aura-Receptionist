@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import { DashboardLayout } from './components/layout/DashboardLayout';
-import { Dashboard } from './components/dashboard/Dashboard';
-import { NewTrainee } from './components/trainee/NewTrainee';
-import { ReceptionPage } from './components/reception/ReceptionPages';
-import { TrainersPage } from './components/trainers/TrainersPage';
-import { ShiftLogin } from './components/auth/ShiftLogin';
+import { Dashboard } from './pages/Dashboard/Dashboard';
+import { NewTrainee } from './pages/NewTrainee/NewTrainee';
+import { Subscriptions } from './pages/Subscriptions/Subscriptions';
+import { Maintenance } from './pages/Maintenance/Maintenance';
+import { Equipments } from './pages/Equipments/Equipments';
+import { Support } from './pages/Support/Support';
+import { Settings } from './pages/Settings/Settings';
+import { TrainersPage } from './pages/Trainers/TrainersPage';
+import { ShiftLogin } from './pages/Auth/ShiftLogin';
 import './App.css';
 import auraLogo from './assets/Aura.svg';
 
@@ -135,9 +139,12 @@ function App() {
               onAction={handleDashboardAction}
             />
           )}
-          {['subscriptions', 'maintenance', 'equipments', 'support', 'settings'].includes(currentPage) && (
-            <ReceptionPage
-              type={currentPage}
+          {currentPage === 'subscriptions' && <Subscriptions receptionist={receptionist} />}
+          {currentPage === 'maintenance' && <Maintenance receptionist={receptionist} />}
+          {currentPage === 'equipments' && <Equipments receptionist={receptionist} />}
+          {currentPage === 'support' && <Support receptionist={receptionist} />}
+          {currentPage === 'settings' && (
+            <Settings
               receptionist={receptionist}
               onUpdateReceptionist={setReceptionist}
             />

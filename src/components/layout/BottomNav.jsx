@@ -9,7 +9,7 @@ export function BottomNav({ onMenuClick, onRefresh, onNotifClick, searchQuery, o
     <nav className="bottom-nav">
       <div className="bottom-nav-container">
         <button className="icon-btn menu-btn-mobile" onClick={onMenuClick}>
-          <Menu size={20} />
+          <Menu size={30} />
         </button>
 
         <div className="search-bar-mobile">
@@ -24,13 +24,13 @@ export function BottomNav({ onMenuClick, onRefresh, onNotifClick, searchQuery, o
 
         <div className="bottom-nav-actions">
           <button className="icon-btn" onClick={onRefresh}>
-            <RefreshCcw size={16} />
+            <RefreshCcw size={30} />
           </button>
           <button className="icon-btn" onClick={toggleTheme}>
-            {isDark ? <Sun size={16} /> : <Moon size={16} />}
+            {isDark ? <Sun size={30} /> : <Moon size={30} />}
           </button>
-          <button className="icon-btn relative" onClick={onNotifClick}>
-            <Bell size={16} />
+          <button className="icon-btn" onClick={onNotifClick}>
+            <Bell size={30} />
             <span className="notification-dot">3</span>
           </button>
         </div>

@@ -72,7 +72,7 @@ export function DashboardLayout({ children, currentPage, onNavigate, branding, r
           onClick={() => onNavigate('new-trainee')}
           title="Add New Trainee"
         >
-          <Plus size={24} />
+          <Plus size={28} />
         </button>
       </div>
       <NotificationPanel isOpen={notifOpen} onClose={() => setNotifOpen(false)} />

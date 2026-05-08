@@ -1,0 +1,311 @@
+.reception-page {
+  width: min(100%, 1480px);
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 24px 40px 56px;
+}
+
+.reception-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 26px;
+}
+
+.reception-kicker {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.reception-hero h1 {
+  margin: 6px 0 8px;
+  font-size: 52px;
+  font-weight: 800;
+}
+
+.reception-hero p {
+  max-width: 720px;
+  margin: 0;
+  color: var(--subtitle);
+  font-size: 17px;
+}
+
+.reception-hero-badge {
+  min-width: 210px;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  background: var(--card-bg);
+  color: var(--title);
+  font-weight: 800;
+}
+
+.reception-hero-badge svg {
+  color: var(--primary);
+}
+
+.reception-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.reception-stat,
+.reception-panel,
+.reception-table-card {
+  border: 1px solid var(--stroke);
+  border-radius: 10px;
+  background: var(--card-bg);
+}
+
+.reception-stat {
+  padding: 22px;
+}
+
+.reception-stat span {
+  display: block;
+  color: var(--subtitle);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.reception-stat strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--title);
+  font-size: 38px;
+  line-height: 1;
+}
+
+.reception-stat small {
+  display: block;
+  margin-top: 8px;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.reception-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.reception-panel {
+  padding: 22px;
+}
+
+.reception-panel-head,
+.reception-table-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.reception-panel-head h2,
+.reception-table-head h2 {
+  margin: 0;
+  color: var(--title);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.reception-panel-head svg {
+  color: var(--primary);
+}
+
+.action-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.action-row {
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--stroke);
+  border-radius: 9px;
+  background: var(--formfield);
+  color: var(--title);
+  text-align: left;
+}
+
+.action-row svg {
+  color: var(--primary);
+}
+
+.action-row span {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.desk-notes {
+  display: grid;
+  gap: 14px;
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+}
+
+.desk-notes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--subtitle);
+  font-size: 15px;
+}
+
+.desk-notes svg {
+  flex: 0 0 auto;
+  color: var(--primary);
+}
+
+.reception-table-card {
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  background: var(--card-bg);
+  overflow: hidden;
+  margin-top: 24px;
+}
+
+.reception-table-head {
+  padding: 22px 24px;
+  border-bottom: 1px solid var(--stroke);
+}
+
+.reception-table-head button {
+  border: 1px solid var(--stroke);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--title);
+  padding: 9px 18px;
+}
+
+.reception-table-scroll table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+}
+
+.reception-table-scroll th,
+.reception-table-scroll td {
+  border-bottom: 1px solid var(--stroke);
+  padding: 18px 24px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.reception-table-scroll th {
+  color: var(--subtitle);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.reception-table-scroll td {
+  color: var(--title);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.reception-status-pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--primary-border);
+  border-radius: 999px;
+  background: var(--primary-lite);
+  color: var(--primary);
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+@media (max-width: 960px) {
+  .reception-page {
+    width: 100%;
+    padding: 18px 16px 112px;
+    overflow-x: hidden;
+  }
+
+  .reception-hero,
+  .reception-grid {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .reception-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .reception-hero h1 {
+    font-size: 36px;
+    line-height: 1.05;
+  }
+
+  .reception-hero p {
+    font-size: 15px;
+  }
+
+  .action-list {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .reception-hero-badge {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .reception-stat {
+    padding: 18px;
+  }
+
+  .reception-stat strong {
+    font-size: 30px;
+  }
+
+  .reception-panel,
+  .reception-table-card {
+    min-width: 0;
+  }
+
+  .reception-panel {
+    padding: 18px;
+  }
+
+  .action-row {
+    min-height: 64px;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .reception-table-head {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+
+  .reception-table-scroll table {
+    min-width: 900px;
+  }
+}

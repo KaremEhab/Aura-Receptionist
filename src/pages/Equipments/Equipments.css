@@ -179,7 +179,11 @@
 }
 
 .reception-table-card {
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  background: var(--card-bg);
   overflow: hidden;
+  margin-top: 24px;
 }
 
 .reception-table-head {
@@ -195,13 +199,9 @@
   padding: 9px 18px;
 }
 
-.reception-table-scroll {
-  overflow-x: auto;
-}
-
 .reception-table-scroll table {
   width: 100%;
-  min-width: 860px;
+  min-width: 900px;
   border-collapse: collapse;
 }
 
@@ -306,107 +306,6 @@
   }
 
   .reception-table-scroll table {
-    min-width: 720px;
-  }
-}
-
-.settings-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
-  gap: 20px;
-}
-
-.profile-settings-card {
-  border: 1px solid var(--stroke);
-  border-radius: 10px;
-  background: var(--card-bg);
-  padding: 22px;
-}
-
-.profile-settings-card h2 {
-  margin: 0 0 18px;
-  color: var(--title);
-}
-
-.settings-form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-}
-
-.settings-form-grid label {
-  display: grid;
-  gap: 7px;
-}
-
-.settings-form-grid label:last-child {
-  grid-column: 1 / -1;
-}
-
-.settings-form-grid span {
-  color: var(--subtitle);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.settings-form-grid input {
-  height: 52px;
-  border: 1px solid var(--stroke);
-  border-radius: 9px;
-  background: var(--formfield);
-  color: var(--title);
-  padding: 0 14px;
-  font: inherit;
-}
-
-.save-profile-btn {
-  margin-top: 18px;
-  min-height: 54px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  border: 0;
-  border-radius: 9px;
-  background: var(--primary);
-  color: #020817;
-  font-weight: 900;
-}
-
-.safety-list {
-  display: grid;
-  gap: 14px;
-}
-
-.safety-list div {
-  border: 1px solid var(--stroke);
-  border-radius: 9px;
-  background: var(--formfield);
-  padding: 14px;
-}
-
-.safety-list strong,
-.safety-list span {
-  display: block;
-}
-
-.safety-list strong {
-  color: var(--title);
-}
-
-.safety-list span {
-  color: var(--subtitle);
-  font-size: 13px;
-}
-
-@media (max-width: 960px) {
-  .settings-layout,
-  .settings-form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .settings-form-grid label:last-child {
-    grid-column: auto;
+    min-width: 900px;
   }
 }

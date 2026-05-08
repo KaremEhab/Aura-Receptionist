@@ -27,15 +27,17 @@
   }
 
   .menu-btn-mobile {
-    background: transparent;
-    border: none;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    border: 1px solid var(--stroke);
+    background: var(--background);
     color: var(--title);
     cursor: pointer;
-    padding: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: -6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   }
 
   .search-bar-mobile {
@@ -44,11 +46,16 @@
     background-color: var(--background);
     border: 1px solid var(--stroke);
     border-radius: 20px;
-    padding: 8px 12px;
+    padding: 10px 16px;
     flex-grow: 1;
     margin: 0 8px;
     gap: 8px;
     min-width: 0;
+  }
+
+  .search-bar-mobile .search-icon {
+    color: var(--title);
+    flex-shrink: 0;
   }
 
   .search-bar-mobile input {
@@ -57,11 +64,13 @@
     outline: none;
     color: var(--title);
     width: 100%;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 600;
   }
 
   .search-bar-mobile input::placeholder {
     color: var(--subtitle);
+    font-weight: 400;
   }
 
   .bottom-nav-actions {
@@ -72,23 +81,25 @@
   }
   
   .bottom-nav .icon-btn {
-    width: 40px;
-    height: 40px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     border: 1px solid var(--stroke);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--subtitle);
-    background: transparent;
+    color: var(--title);
+    background: var(--background);
     cursor: pointer;
     transition: all 0.2s;
     position: relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
 
   .bottom-nav .icon-btn:hover {
-    background-color: var(--background);
-    color: var(--title);
+    background-color: var(--primary-lite);
+    border-color: var(--primary-border);
+    color: var(--primary);
   }
 
   .bottom-nav .notification-dot {
