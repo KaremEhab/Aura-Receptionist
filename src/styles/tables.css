@@ -1,7 +1,7 @@
 /* Shared Table Styles */
 .table-card {
   margin-top: 24px;
-  background: var(--card-bg, rgba(4, 10, 23, 0.62));
+  background: var(--card-bg);
   border: 1px solid var(--stroke);
   border-radius: 16px;
   overflow: hidden;
@@ -17,6 +17,7 @@
   align-items: center;
   padding: 24px 27px;
   border-bottom: 1px solid var(--stroke);
+  background: var(--card-bg);
 }
 
 .table-header h3 {
@@ -66,6 +67,7 @@ table {
   width: 100%;
   min-width: 900px;
   border-collapse: collapse;
+  background: transparent;
 }
 
 th {
@@ -77,6 +79,7 @@ th {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  background: var(--sidebar);
 }
 
 td {
@@ -85,10 +88,19 @@ td {
   font-size: 14px;
   color: var(--title);
   transition: background-color 0.2s;
+  background: var(--sidebar);
 }
 
 tr:last-child td {
   border-bottom: none;
+}
+
+tr {
+  background: transparent;
+}
+
+tbody {
+  background: transparent;
 }
 
 tr:hover td {
