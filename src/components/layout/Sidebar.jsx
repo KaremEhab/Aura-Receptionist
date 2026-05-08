@@ -51,6 +51,8 @@ export function Sidebar({ isOpen, onClose, currentPage, onNavigate, branding, re
     });
   };
 
+  const [showEndShiftOptions, setShowEndShiftOptions] = useState(false);
+
   return (
     <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
       <div className="sidebar-header-profile" onClick={() => handleNavigate('dashboard')}>
@@ -126,15 +128,26 @@ export function Sidebar({ isOpen, onClose, currentPage, onNavigate, branding, re
           <ChevronRight size={16} className="arrow" />
         </div>
 
-        <button className="scan-shift-btn" onClick={onEndShift}>
-          <ScanLine size={18} />
-          <span>SCAN TO END</span>
-        </button>
-
-        <button className="end-shift-btn" onClick={onEndShift}>
-          <LogOut size={18} />
-          <span>END SHIFT</span>
-        </button>
+        <div className="end-shift-container">
+          {!showEndShiftOptions ? (
+            <button className="end-shift-btn" onClick={() => setShowEndShiftOptions(true)}>
+              <LogOut size={18} />
+              <span>END SHIFT</span>
+            </button>
+          ) : (
+            <div className="end-shift-options">
+              <button className="auth-option-btn scan" onClick={() => { onEndShift('scan'); setShowEndShiftOptions(false); }}>
+                <ScanLine size={16} />
+                <span>Scan Card</span>
+              </button>
+              <button className="auth-option-btn password" onClick={() => { onEndShift('password'); setShowEndShiftOptions(false); }}>
+                <Zap size={16} />
+                <span>Password</span>
+              </button>
+              <button className="cancel-auth-btn" onClick={() => setShowEndShiftOptions(false)}>Cancel</button>
+            </div>
+          )}
+        </div>
 
         <div className="aura-branding">
           <img src={branding.logo} alt="AURA.FIT." className="aura-logo-mini" />

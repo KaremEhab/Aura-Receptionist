@@ -144,7 +144,7 @@ export function Dashboard({ shiftData, onNavigate, onAction }) {
             </div>
             <button
               className="outline-btn-sm full-width"
-              onClick={() => onNavigate?.('equipments')}
+              onClick={() => onNavigate?.('trainers')}
               style={{ marginTop: '16px', width: '100%', borderColor: 'var(--primary-border)', color: 'var(--primary)' }}
             >
               Full Floor Calendar

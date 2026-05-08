@@ -38,7 +38,7 @@ function App() {
     memberSince: '2022'
   };
 
-  const handleEndShift = () => {
+  const handleEndShift = (method) => {
     setLastShift({
       name: receptionist.name,
       endedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
