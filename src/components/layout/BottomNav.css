@@ -27,8 +27,8 @@
   }
 
   .menu-btn-mobile {
-    width: 5px;
-    height: 5px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     border: 1px solid var(--stroke);
     background: var(--background);
