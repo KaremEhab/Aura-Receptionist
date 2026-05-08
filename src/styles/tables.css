@@ -1,0 +1,227 @@
+/* Shared Table Styles */
+.table-card {
+  margin-top: 24px;
+  background: var(--card-bg, rgba(4, 10, 23, 0.62));
+  border: 1px solid var(--stroke);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 27px;
+  border-bottom: 1px solid var(--stroke);
+}
+
+.table-header h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--title);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-secondary-sm {
+  background: transparent;
+  border: 1px solid var(--stroke);
+  color: var(--subtitle);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary-sm:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-lite);
+}
+
+.table-responsive {
+  overflow-x: auto;
+  width: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.table-responsive::-webkit-scrollbar {
+  display: none;
+}
+
+table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  font-size: 11px;
+  color: var(--subtitle);
+  padding: 14px 27px;
+  border-bottom: 1px solid var(--stroke);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+td {
+  padding: 22px 27px;
+  border-bottom: 1px solid var(--stroke);
+  font-size: 14px;
+  color: var(--title);
+  transition: background-color 0.2s;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background-color: var(--primary-lite);
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.text-bold {
+  font-weight: 700;
+  color: var(--title);
+}
+
+.text-subtitle {
+  color: var(--subtitle);
+}
+
+.plan-pill {
+  display: inline-block;
+  padding: 4px 10px;
+  background: var(--formfield);
+  border: 1px solid var(--stroke);
+  border-radius: 6px;
+  color: var(--subtitle);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.status-text {
+  font-weight: 800;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.status-text.authorized, 
+.status-text.active, 
+.status-text.available,
+.status-text.prepaid { color: var(--primary); }
+
+.status-text.expired, 
+.status-text.failed, 
+.status-text.blocked { color: var(--alert); }
+
+.status-text.pending, 
+.status-text.maintenance { color: var(--secondary); }
+
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 27px;
+  border-top: 1px solid var(--stroke);
+  background: var(--card-bg);
+}
+
+.table-footer span {
+  font-size: 13px;
+  color: var(--subtitle);
+  font-weight: 600;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.page-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--formfield);
+  border: 1px solid var(--stroke);
+  border-radius: 8px;
+  color: var(--subtitle);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.page-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.page-btn.active {
+  background: var(--primary-lite);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+@media (max-width: 960px) {
+  .table-card {
+    max-width: 100%;
+    margin-top: 16px;
+    border-radius: 12px;
+  }
+
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    min-width: 800px;
+  }
+
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+  }
+  
+  .table-actions {
+    width: 100%;
+  }
+  
+  .table-actions button {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .table-footer {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+}

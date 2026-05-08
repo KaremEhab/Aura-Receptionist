@@ -1,28 +1,39 @@
-import { Dumbbell, CalendarClock, CheckCircle2, Wrench, Sparkles, MapPin } from 'lucide-react';
+import { Dumbbell, CalendarClock, CheckCircle2, Wrench, Sparkles, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
-import './Equipments.css';
+import { motion } from 'framer-motion';
 
 const initialRows = [
-  ['Treadmill T-04', 'Cardio', 'Available', 'Open', 'Cleaned 09:10'],
-  ['Cable Station C-02', 'Strength', 'Reserved', 'PT 11:00', 'Coach Omar'],
-  ['Spin Bike S-18', 'Studio', 'Maintenance', 'Blocked', 'Pedal check'],
-  ['Recovery Boots R-03', 'Recovery', 'Available', 'Open', 'Sanitized'],
+  { unit: 'Treadmill T-04', zone: 'Cardio', state: 'Available', booking: 'Open', status: 'Cleaned 09:10' },
+  { unit: 'Cable Station C-02', zone: 'Strength', state: 'Reserved', booking: 'PT 11:00', status: 'Coach Omar' },
+  { unit: 'Spin Bike S-18', zone: 'Studio', state: 'Maintenance', booking: 'Blocked', status: 'Pedal check' },
+  { unit: 'Recovery Boots R-03', zone: 'Recovery', state: 'Available', booking: 'Open', status: 'Sanitized' },
 ];
 
 export function Equipments({ receptionist }) {
   const [rows, setRows] = useState(initialRows);
   const [activeAction, setActiveAction] = useState('Ready');
+  const [page, setPage] = useState(1);
 
   const handleAction = (label) => {
     setActiveAction(label);
     const stamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const newRow = [`Desk Request ${rows.length + 1}`, 'Reception', label.includes('Fault') ? 'Maintenance' : 'Reserved', stamp, label];
+    const newRow = { 
+      unit: `Desk Request ${rows.length + 1}`, 
+      zone: 'Reception', 
+      state: label.includes('Fault') ? 'Maintenance' : 'Reserved', 
+      booking: stamp, 
+      status: label 
+    };
     setRows([newRow, ...rows]);
   };
 
   return (
     <section className="reception-page">
-      <div className="reception-hero">
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="reception-hero"
+      >
         <div>
           <span className="reception-kicker">Reception Operations</span>
           <h1>Equipments</h1>
@@ -32,28 +43,34 @@ export function Equipments({ receptionist }) {
           <Dumbbell size={28} />
           <span>{receptionist?.name || 'Receptionist'}</span>
         </div>
-      </div>
+      </motion.div>
 
       <div className="reception-stats">
-        <article className="reception-stat">
-          <span>Available Units</span>
-          <strong>86</strong>
-          <small>Across all zones</small>
-        </article>
-        <article className="reception-stat">
-          <span>Reserved</span>
-          <strong>14</strong>
-          <small>Next 2 hours</small>
-        </article>
-        <article className="reception-stat">
-          <span>Blocked</span>
-          <strong>5</strong>
-          <small>Maintenance hold</small>
-        </article>
+        {[
+          { label: 'Available Units', value: '86', sub: 'Across all zones' },
+          { label: 'Reserved', value: '14', sub: 'Next 2 hours' },
+          { label: 'Blocked', value: '5', sub: 'Maintenance hold' }
+        ].map((stat, i) => (
+          <motion.article 
+            key={i}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: i * 0.1 }}
+            className="reception-stat"
+          >
+            <span>{stat.label}</span>
+            <strong>{stat.value}</strong>
+            <small>{stat.sub}</small>
+          </motion.article>
+        ))}
       </div>
 
       <div className="reception-grid">
-        <section className="reception-panel">
+        <motion.section 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="reception-panel"
+        >
           <div className="reception-panel-head">
             <h2>Quick Actions</h2>
             <Sparkles size={18} />
@@ -72,9 +89,13 @@ export function Equipments({ receptionist }) {
               <span>Report Fault</span>
             </button>
           </div>
-        </section>
+        </motion.section>
 
-        <section className="reception-panel">
+        <motion.section 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="reception-panel"
+        >
           <div className="reception-panel-head">
             <h2>Desk Notes</h2>
             <MapPin size={18} />
@@ -93,39 +114,59 @@ export function Equipments({ receptionist }) {
               <span>Blocked equipment should not be promised to guests.</span>
             </li>
           </ul>
-        </section>
+        </motion.section>
       </div>
 
-      <section className="reception-table-card">
-        <div className="reception-table-head">
-          <h2>Equipment Desk View</h2>
-          <button>Export</button>
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="table-card"
+      >
+        <div className="table-header">
+          <h3>EQUIPMENT DESK VIEW</h3>
+          <div className="table-actions">
+            <button className="btn-secondary-sm">Export CSV</button>
+            <button className="btn-secondary-sm">Status Key</button>
+          </div>
         </div>
-        <div className="overflow-x-auto no-scrollbar">
+        <div className="table-responsive">
           <table>
             <thead>
               <tr>
-                <th>Unit</th>
-                <th>Zone</th>
-                <th>State</th>
-                <th>Booking</th>
-                <th>Note</th>
+                <th className="whitespace-nowrap">UNIT</th>
+                <th className="whitespace-nowrap">ZONE</th>
+                <th className="whitespace-nowrap">STATE</th>
+                <th className="whitespace-nowrap">BOOKING</th>
+                <th className="whitespace-nowrap" style={{ textAlign: 'right' }}>STATUS</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((row, i) => (
                 <tr key={i}>
-                  {row.map((cell, index) => (
-                    <td key={index}>
-                      <span className={index === row.length - 1 ? 'reception-status-pill' : ''}>{cell}</span>
-                    </td>
-                  ))}
+                  <td className="whitespace-nowrap"><span className="text-bold">{row.unit}</span></td>
+                  <td className="whitespace-nowrap"><span className="plan-pill">{row.zone}</span></td>
+                  <td className="whitespace-nowrap"><span className="text-subtitle">{row.state}</span></td>
+                  <td className="whitespace-nowrap"><span className="text-subtitle">{row.booking}</span></td>
+                  <td className="whitespace-nowrap" style={{ textAlign: 'right' }}>
+                    <span className={`status-text ${row.status.toLowerCase().replace(' ', '-')}`}>{row.status}</span>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </section>
+        <div className="table-footer">
+          <span>{rows.length} units tracked at desk</span>
+          <div className="pagination">
+            <button className="page-btn" onClick={() => setPage(Math.max(1, page - 1))}><ChevronLeft size={16} /></button>
+            <button className={`page-btn ${page === 1 ? 'active' : ''}`} onClick={() => setPage(1)}>1</button>
+            <button className={`page-btn ${page === 2 ? 'active' : ''}`} onClick={() => setPage(2)}>2</button>
+            <button className="page-btn" onClick={() => setPage(page + 1)}><ChevronRight size={16} /></button>
+          </div>
+        </div>
+      </motion.section>
     </section>
   );
 }
+

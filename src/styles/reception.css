@@ -1,0 +1,213 @@
+/* Shared Reception Layout Styles */
+.reception-page {
+  width: 100%;
+  max-width: 1480px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 24px 40px 56px;
+  overflow-x: hidden;
+}
+
+.reception-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 26px;
+}
+
+.reception-kicker {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.reception-hero h1 {
+  margin: 6px 0 8px;
+  font-size: 52px;
+  font-weight: 800;
+}
+
+.reception-hero p {
+  max-width: 720px;
+  margin: 0;
+  color: var(--subtitle);
+  font-size: 17px;
+}
+
+.reception-hero-badge {
+  min-width: 210px;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  border: 1px solid var(--stroke);
+  border-radius: 12px;
+  background: var(--card-bg);
+  color: var(--title);
+  font-weight: 800;
+}
+
+.reception-hero-badge svg {
+  color: var(--primary);
+}
+
+.reception-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.reception-stat {
+  padding: 22px;
+  border: 1px solid var(--stroke);
+  border-radius: 10px;
+  background: var(--card-bg);
+}
+
+.reception-stat span {
+  display: block;
+  color: var(--subtitle);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.reception-stat strong {
+  display: block;
+  margin-top: 8px;
+  color: var(--title);
+  font-size: 38px;
+  line-height: 1;
+}
+
+.reception-stat small {
+  display: block;
+  margin-top: 8px;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.reception-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.reception-panel {
+  padding: 22px;
+  border: 1px solid var(--stroke);
+  border-radius: 10px;
+  background: var(--card-bg);
+}
+
+.reception-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.reception-panel-head h2 {
+  margin: 0;
+  color: var(--title);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.reception-panel-head svg {
+  color: var(--primary);
+}
+
+.action-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.action-row {
+  min-height: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid var(--stroke);
+  border-radius: 9px;
+  background: var(--formfield);
+  color: var(--title);
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-row:hover {
+  border-color: var(--primary);
+  background: var(--primary-lite);
+}
+
+.action-row svg {
+  color: var(--primary);
+}
+
+.action-row span {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.desk-notes {
+  display: grid;
+  gap: 14px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.desk-notes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--subtitle);
+  font-size: 15px;
+}
+
+.desk-notes svg {
+  flex: 0 0 auto;
+  color: var(--primary);
+}
+
+@media (max-width: 960px) {
+  .reception-page {
+    width: 100%;
+    max-width: 100vw;
+    padding: 18px 16px 112px;
+  }
+
+  .reception-hero,
+  .reception-grid {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .reception-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .reception-hero h1 {
+    font-size: 36px;
+  }
+
+  .action-list {
+    grid-template-columns: 1fr;
+  }
+}

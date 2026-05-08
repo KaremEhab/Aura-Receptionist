@@ -1,4 +1,6 @@
 @import './theme.css';
+@import './styles/tables.css';
+@import './styles/reception.css';
 
 :root {
   font-family: 'Outfit', 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;

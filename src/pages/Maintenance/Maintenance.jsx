@@ -1,28 +1,39 @@
-import { Wrench, ClipboardList, AlertTriangle, Phone, Sparkles, MapPin, CheckCircle2 } from 'lucide-react';
+import { Wrench, ClipboardList, AlertTriangle, Phone, Sparkles, MapPin, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
-import './Maintenance.css';
+import { motion } from 'framer-motion';
 
 const initialRows = [
-  ['Main gate scanner', 'Reception', 'High', '35 min', 'Facilities'],
-  ['Locker room AC', 'Women lockers', 'Medium', 'Today 16:00', 'Vendor'],
-  ['POS printer paper', 'Front desk', 'Low', 'Stocked', 'Reception'],
-  ['Studio 2 lights', 'Group class', 'Medium', 'Tomorrow', 'Electrician'],
+  { issue: 'Main gate scanner', area: 'Reception', priority: 'High', eta: '35 min', status: 'Facilities' },
+  { issue: 'Locker room AC', area: 'Women lockers', priority: 'Medium', eta: 'Today 16:00', status: 'Vendor' },
+  { issue: 'POS printer paper', area: 'Front desk', priority: 'Low', eta: 'Stocked', status: 'Reception' },
+  { issue: 'Studio 2 lights', area: 'Group class', priority: 'Medium', eta: 'Tomorrow', status: 'Electrician' },
 ];
 
 export function Maintenance({ receptionist }) {
   const [rows, setRows] = useState(initialRows);
   const [activeAction, setActiveAction] = useState('Ready');
+  const [page, setPage] = useState(1);
 
   const handleAction = (label) => {
     setActiveAction(label);
     const stamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const newRow = [label, 'Reception', label.includes('Safety') ? 'High' : 'Medium', 'Logged now', receptionist?.name || 'Reception'];
+    const newRow = { 
+      issue: label, 
+      area: 'Reception', 
+      priority: label.includes('Safety') ? 'High' : 'Medium', 
+      eta: 'Logged now', 
+      status: receptionist?.name || 'Reception' 
+    };
     setRows([newRow, ...rows]);
   };
 
   return (
     <section className="reception-page">
-      <div className="reception-hero">
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="reception-hero"
+      >
         <div>
           <span className="reception-kicker">Reception Operations</span>
           <h1>Maintenance</h1>
@@ -32,28 +43,34 @@ export function Maintenance({ receptionist }) {
           <Wrench size={28} />
           <span>{receptionist?.name || 'Receptionist'}</span>
         </div>
-      </div>
+      </motion.div>
 
       <div className="reception-stats">
-        <article className="reception-stat">
-          <span>Open Tickets</span>
-          <strong>7</strong>
-          <small>2 reception-critical</small>
-        </article>
-        <article className="reception-stat">
-          <span>Vendor Visits</span>
-          <strong>3</strong>
-          <small>Expected today</small>
-        </article>
-        <article className="reception-stat">
-          <span>Resolved</span>
-          <strong>12</strong>
-          <small>This week</small>
-        </article>
+        {[
+          { label: 'Open Tickets', value: '7', sub: '2 reception-critical' },
+          { label: 'Vendor Visits', value: '3', sub: 'Expected today' },
+          { label: 'Resolved', value: '12', sub: 'This week' }
+        ].map((stat, i) => (
+          <motion.article 
+            key={i}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: i * 0.1 }}
+            className="reception-stat"
+          >
+            <span>{stat.label}</span>
+            <strong>{stat.value}</strong>
+            <small>{stat.sub}</small>
+          </motion.article>
+        ))}
       </div>
 
       <div className="reception-grid">
-        <section className="reception-panel">
+        <motion.section 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="reception-panel"
+        >
           <div className="reception-panel-head">
             <h2>Quick Actions</h2>
             <Sparkles size={18} />
@@ -72,9 +89,13 @@ export function Maintenance({ receptionist }) {
               <span>Call Vendor</span>
             </button>
           </div>
-        </section>
+        </motion.section>
 
-        <section className="reception-panel">
+        <motion.section 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="reception-panel"
+        >
           <div className="reception-panel-head">
             <h2>Desk Notes</h2>
             <MapPin size={18} />
@@ -93,39 +114,59 @@ export function Maintenance({ receptionist }) {
               <span>Keep members away from blocked areas until cleared.</span>
             </li>
           </ul>
-        </section>
+        </motion.section>
       </div>
 
-      <section className="reception-table-card">
-        <div className="reception-table-head">
-          <h2>Facility Service Board</h2>
-          <button>Export</button>
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="table-card"
+      >
+        <div className="table-header">
+          <h3>FACILITY SERVICE BOARD</h3>
+          <div className="table-actions">
+            <button className="btn-secondary-sm">Export CSV</button>
+            <button className="btn-secondary-sm">Refresh</button>
+          </div>
         </div>
-        <div className="overflow-x-auto no-scrollbar">
+        <div className="table-responsive">
           <table>
             <thead>
               <tr>
-                <th>Issue</th>
-                <th>Area</th>
-                <th>Priority</th>
-                <th>ETA</th>
-                <th>Owner</th>
+                <th className="whitespace-nowrap">ISSUE</th>
+                <th className="whitespace-nowrap">AREA</th>
+                <th className="whitespace-nowrap">PRIORITY</th>
+                <th className="whitespace-nowrap">ETA</th>
+                <th className="whitespace-nowrap" style={{ textAlign: 'right' }}>STATUS</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((row, i) => (
                 <tr key={i}>
-                  {row.map((cell, index) => (
-                    <td key={index}>
-                      <span className={index === row.length - 1 ? 'reception-status-pill' : ''}>{cell}</span>
-                    </td>
-                  ))}
+                  <td className="whitespace-nowrap"><span className="text-bold">{row.issue}</span></td>
+                  <td className="whitespace-nowrap"><span className="plan-pill">{row.area}</span></td>
+                  <td className="whitespace-nowrap"><span className="text-subtitle">{row.priority}</span></td>
+                  <td className="whitespace-nowrap"><span className="text-subtitle">{row.eta}</span></td>
+                  <td className="whitespace-nowrap" style={{ textAlign: 'right' }}>
+                    <span className={`status-text ${row.status.toLowerCase().replace(' ', '-')}`}>{row.status}</span>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </section>
+        <div className="table-footer">
+          <span>{rows.length} open maintenance tickets</span>
+          <div className="pagination">
+            <button className="page-btn" onClick={() => setPage(Math.max(1, page - 1))}><ChevronLeft size={16} /></button>
+            <button className={`page-btn ${page === 1 ? 'active' : ''}`} onClick={() => setPage(1)}>1</button>
+            <button className={`page-btn ${page === 2 ? 'active' : ''}`} onClick={() => setPage(2)}>2</button>
+            <button className="page-btn" onClick={() => setPage(page + 1)}><ChevronRight size={16} /></button>
+          </div>
+        </div>
+      </motion.section>
     </section>
   );
 }
+

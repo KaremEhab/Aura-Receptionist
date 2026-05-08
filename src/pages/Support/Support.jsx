@@ -1,28 +1,39 @@
-import { Headphones, Mail, UserCog, Sparkles, MapPin, CheckCircle2 } from 'lucide-react';
+import { Headphones, Mail, UserCog, Sparkles, MapPin, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
-import './Support.css';
+import { motion } from 'framer-motion';
 
 const initialRows = [
-  ['Mariam Samy', 'Freeze membership for travel', 'Front desk', '12 min', 'Open'],
-  ['Ahmed Nader', 'Card replacement', 'Phone', '8 min', 'Waiting ID'],
-  ['Sara Adel', 'Class booking conflict', 'WhatsApp', '22 min', 'Escalated'],
-  ['Hana Youssef', 'Invoice resend', 'Email', 'Done', 'Closed'],
+  { member: 'Mariam Samy', request: 'Freeze membership for travel', channel: 'Front desk', sla: '12 min', status: 'Open' },
+  { member: 'Ahmed Nader', request: 'Card replacement', channel: 'Phone', sla: '8 min', status: 'Waiting ID' },
+  { member: 'Sara Adel', request: 'Class booking conflict', channel: 'WhatsApp', sla: '22 min', status: 'Escalated' },
+  { member: 'Hana Youssef', request: 'Invoice resend', channel: 'Email', sla: 'Done', status: 'Closed' },
 ];
 
 export function Support({ receptionist }) {
   const [rows, setRows] = useState(initialRows);
   const [activeAction, setActiveAction] = useState('Ready');
+  const [page, setPage] = useState(1);
 
   const handleAction = (label) => {
     setActiveAction(label);
     const stamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    const newRow = [`Guest ${rows.length + 1}`, label, 'Front desk', 'Just now', label.includes('Escalate') ? 'Escalated' : 'Open'];
+    const newRow = { 
+      member: `Guest ${rows.length + 1}`, 
+      request: label, 
+      channel: 'Front desk', 
+      sla: 'Just now', 
+      status: label.includes('Escalate') ? 'Escalated' : 'Open' 
+    };
     setRows([newRow, ...rows]);
   };
 
   return (
     <section className="reception-page">
-      <div className="reception-hero">
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="reception-hero"
+      >
         <div>
           <span className="reception-kicker">Reception Operations</span>
           <h1>Support</h1>
@@ -32,28 +43,34 @@ export function Support({ receptionist }) {
           <Headphones size={28} />
           <span>{receptionist?.name || 'Receptionist'}</span>
         </div>
-      </div>
+      </motion.div>
 
       <div className="reception-stats">
-        <article className="reception-stat">
-          <span>Open Requests</span>
-          <strong>11</strong>
-          <small>4 waiting member reply</small>
-        </article>
-        <article className="reception-stat">
-          <span>Avg SLA</span>
-          <strong>16m</strong>
-          <small>Front desk queue</small>
-        </article>
-        <article className="reception-stat">
-          <span>Escalated</span>
-          <strong>2</strong>
-          <small>Manager needed</small>
-        </article>
+        {[
+          { label: 'Open Requests', value: '11', sub: '4 waiting member reply' },
+          { label: 'Avg SLA', value: '16m', sub: 'Front desk queue' },
+          { label: 'Escalated', value: '2', sub: 'Manager needed' }
+        ].map((stat, i) => (
+          <motion.article 
+            key={i}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: i * 0.1 }}
+            className="reception-stat"
+          >
+            <span>{stat.label}</span>
+            <strong>{stat.value}</strong>
+            <small>{stat.sub}</small>
+          </motion.article>
+        ))}
       </div>
 
       <div className="reception-grid">
-        <section className="reception-panel">
+        <motion.section 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="reception-panel"
+        >
           <div className="reception-panel-head">
             <h2>Quick Actions</h2>
             <Sparkles size={18} />
@@ -72,9 +89,13 @@ export function Support({ receptionist }) {
               <span>Escalate to Manager</span>
             </button>
           </div>
-        </section>
+        </motion.section>
 
-        <section className="reception-panel">
+        <motion.section 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="reception-panel"
+        >
           <div className="reception-panel-head">
             <h2>Desk Notes</h2>
             <MapPin size={18} />
@@ -93,39 +114,59 @@ export function Support({ receptionist }) {
               <span>Escalate billing disputes before adjusting balances.</span>
             </li>
           </ul>
-        </section>
+        </motion.section>
       </div>
 
-      <section className="reception-table-card">
-        <div className="reception-table-head">
-          <h2>Reception Support Queue</h2>
-          <button>Export</button>
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="table-card"
+      >
+        <div className="table-header">
+          <h3>RECEPTION SUPPORT QUEUE</h3>
+          <div className="table-actions">
+            <button className="btn-secondary-sm">Export CSV</button>
+            <button className="btn-secondary-sm">Queue Logic</button>
+          </div>
         </div>
-        <div className="overflow-x-auto no-scrollbar">
+        <div className="table-responsive">
           <table>
             <thead>
               <tr>
-                <th>Member / Guest</th>
-                <th>Request</th>
-                <th>Channel</th>
-                <th>SLA</th>
-                <th>Status</th>
+                <th className="whitespace-nowrap">MEMBER / GUEST</th>
+                <th className="whitespace-nowrap">REQUEST</th>
+                <th className="whitespace-nowrap">CHANNEL</th>
+                <th className="whitespace-nowrap">SLA</th>
+                <th className="whitespace-nowrap" style={{ textAlign: 'right' }}>STATUS</th>
               </tr>
             </thead>
             <tbody>
               {rows.map((row, i) => (
                 <tr key={i}>
-                  {row.map((cell, index) => (
-                    <td key={index}>
-                      <span className={index === row.length - 1 ? 'reception-status-pill' : ''}>{cell}</span>
-                    </td>
-                  ))}
+                  <td className="whitespace-nowrap"><span className="text-bold">{row.member}</span></td>
+                  <td className="whitespace-nowrap"><span className="plan-pill">{row.request}</span></td>
+                  <td className="whitespace-nowrap"><span className="text-subtitle">{row.channel}</span></td>
+                  <td className="whitespace-nowrap"><span className="text-subtitle">{row.sla}</span></td>
+                  <td className="whitespace-nowrap" style={{ textAlign: 'right' }}>
+                    <span className={`status-text ${row.status.toLowerCase().replace(' ', '-')}`}>{row.status}</span>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </section>
+        <div className="table-footer">
+          <span>{rows.length} pending support requests</span>
+          <div className="pagination">
+            <button className="page-btn" onClick={() => setPage(Math.max(1, page - 1))}><ChevronLeft size={16} /></button>
+            <button className={`page-btn ${page === 1 ? 'active' : ''}`} onClick={() => setPage(1)}>1</button>
+            <button className={`page-btn ${page === 2 ? 'active' : ''}`} onClick={() => setPage(2)}>2</button>
+            <button className="page-btn" onClick={() => setPage(page + 1)}><ChevronRight size={16} /></button>
+          </div>
+        </div>
+      </motion.section>
     </section>
   );
 }
+
